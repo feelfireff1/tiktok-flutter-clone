@@ -6,8 +6,10 @@ class FormButton extends StatelessWidget {
     super.key,
     required this.disabled,
     required this.onPressed,
+    required this.text,
   });
 
+  final String text;
   final bool disabled;
   final Function() onPressed;
 
@@ -33,8 +35,8 @@ class FormButton extends StatelessWidget {
               fontWeight: FontWeight.w600,
               color: disabled ? Colors.grey.shade400 : Colors.white,
             ),
-            child: const Text(
-              'Next',
+            child: Text(
+              text,
               textAlign: TextAlign.center,
             ),
           ),

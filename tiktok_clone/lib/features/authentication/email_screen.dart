@@ -78,6 +78,7 @@ class _EmailScreenState extends State<EmailScreen> {
               ),
               Gaps.v28,
               FormButton(
+                text: 'Next',
                 onPressed: _onSubmitTap,
                 disabled: _email.isEmpty || _emailErrorText() != null,
               ),
