@@ -17,7 +17,7 @@ class EmailScreen extends StatelessWidget {
           children: const [
             Gaps.v40,
             Text(
-              'Create username',
+              'Email',
               style: TextStyle(
                 fontSize: Sizes.size24,
                 fontWeight: FontWeight.w700,
