@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/constants.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
+import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({super.key});
@@ -30,7 +31,10 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
               TextFormField(
                 decoration: const InputDecoration(hintText: 'Email'),
                 validator: (value) {
-                  // return 'I don\'t like your email';
+                  if (value != null && value.isEmpty) {
+                    return "Please write your email";
+                  }
+
                   return null;
                 },
                 onSaved: (newValue) {
@@ -43,7 +47,10 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
               TextFormField(
                 decoration: const InputDecoration(hintText: 'Password'),
                 validator: (value) {
-                  // return 'wrong password';
+                  if (value != null && value.isEmpty) {
+                    return "Please write your password";
+                  }
+
                   return null;
                 },
                 onSaved: (newValue) {
@@ -68,6 +75,9 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
   void _onSubmitTap() {
     if (_formKey.currentState?.validate() == true) {
       _formKey.currentState?.save();
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (_) => const InterestsScreen(),
+      ));
     }
   }
 }
