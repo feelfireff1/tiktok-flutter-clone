@@ -1,5 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/constants/constants.dart';
+
+import 'widgets/nav_tab.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -21,24 +24,42 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(
-        items: const [
-          BottomNavigationBarItem(
-              icon: FaIcon(
-                FontAwesomeIcons.house,
-                size: 20,
+    return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.all(Sizes.size12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              NavTab(
+                text: 'Home',
+                isSelected: _selectedIndex == 0,
+                icon: FontAwesomeIcons.house,
+                onTap: () => _onTapBottomNavigationItem(0),
               ),
-              label: 'Home'),
-          BottomNavigationBarItem(
-              icon: FaIcon(
-                FontAwesomeIcons.magnifyingGlass,
-                size: 20,
+              NavTab(
+                text: 'Discover',
+                isSelected: _selectedIndex == 1,
+                icon: FontAwesomeIcons.magnifyingGlass,
+                onTap: () => _onTapBottomNavigationItem(1),
               ),
-              label: 'Search')
-        ],
+              NavTab(
+                text: 'Inbox',
+                isSelected: _selectedIndex == 3,
+                icon: FontAwesomeIcons.message,
+                onTap: () => _onTapBottomNavigationItem(3),
+              ),
+              NavTab(
+                text: 'Profile',
+                isSelected: _selectedIndex == 4,
+                icon: FontAwesomeIcons.user,
+                onTap: () => _onTapBottomNavigationItem(4),
+              ),
+            ],
+          ),
+        ),
       ),
-      tabBuilder: (context, index) => screens[index],
     );
   }
 
