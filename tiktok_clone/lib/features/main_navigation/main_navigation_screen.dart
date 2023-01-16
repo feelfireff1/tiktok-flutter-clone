@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/constants.dart';
 
 import 'widgets/nav_tab.dart';
+import 'widgets/post_video_button.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -50,6 +51,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               NavTab(
@@ -66,6 +68,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 selectedIcon: FontAwesomeIcons.solidCompass,
                 onTap: () => _onTapBottomNavigationItem(1),
               ),
+              Gaps.h24,
+              PostVideoButton(onPressed: _onPostVideoButtonTap),
+              Gaps.h24,
               NavTab(
                 text: 'Inbox',
                 isSelected: _selectedIndex == 3,
@@ -91,5 +96,16 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void _onPostVideoButtonTap() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Record Video'),
+        ),
+      ),
+      fullscreenDialog: true,
+    ));
   }
 }
