@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 part 'email_input_state.dart';
 
 class EmailInputCubit extends Cubit<EmailInputState> {
-  EmailInputCubit({required this.emailController})
-      : super(EmailInputState(
+  EmailInputCubit({required TextEditingController emailController})
+      : _emailController = emailController,
+        super(EmailInputState(
           emailController: emailController,
         )) {
     emailController.addListener(_emailChanged);
@@ -13,20 +14,20 @@ class EmailInputCubit extends Cubit<EmailInputState> {
 
   @override
   Future<void> close() {
-    emailController.dispose();
+    _emailController.dispose();
     return super.close();
   }
 
-  final TextEditingController emailController;
+  final TextEditingController _emailController;
 
-  String get _email => emailController.text;
+  String get _email => _emailController.text;
 
   void onSubmitTap() {
     if (state.isFormButtonDisabled) return;
 
     emit(EmailInputState(
       destination: EmailInputDestination.next,
-      emailController: emailController,
+      emailController: _emailController,
     ));
   }
 

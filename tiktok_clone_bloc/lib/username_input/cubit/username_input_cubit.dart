@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 part 'username_input_state.dart';
 
 class UsernameInputCubit extends Cubit<UsernameInputState> {
-  UsernameInputCubit({required this.usernameController})
-      : super(UsernameInputState(usernameController: usernameController)) {
+  UsernameInputCubit({required TextEditingController usernameController})
+      : _usernameController = usernameController,
+        super(UsernameInputState(usernameController: usernameController)) {
     usernameController.addListener(_textEdited);
   }
 
-  final TextEditingController usernameController;
+  final TextEditingController _usernameController;
 
-  String get _username => usernameController.text;
+  String get _username => _usernameController.text;
 
   void _textEdited() {
     emit(state.copyWith(
@@ -28,7 +29,7 @@ class UsernameInputCubit extends Cubit<UsernameInputState> {
 
   @override
   Future<void> close() {
-    usernameController..dispose();
+    _usernameController..dispose();
     return super.close();
   }
 }

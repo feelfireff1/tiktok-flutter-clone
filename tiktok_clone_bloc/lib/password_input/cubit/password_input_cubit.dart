@@ -6,12 +6,12 @@ part 'password_input_state.dart';
 class PasswordInputCubit extends Cubit<PasswordInputState> {
   PasswordInputCubit({
     required TextEditingController passwordController,
-  }) : super(PasswordInputState(passwordController: passwordController)) {
-    this._passwordController = passwordController;
+  })  : _passwordController = passwordController,
+        super(PasswordInputState(passwordController: passwordController)) {
     passwordController.addListener(_onPasswordChange);
   }
 
-  late final TextEditingController _passwordController;
+  final TextEditingController _passwordController;
 
   String get _password => _passwordController.text;
   bool get _isPasswordValid => _password.isNotEmpty && _password.length >= 8;

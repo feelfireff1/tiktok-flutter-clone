@@ -5,16 +5,17 @@ import 'package:intl/intl.dart';
 part 'birthday_input_state.dart';
 
 class BirthdayInputCubit extends Cubit<BirthdayInputState> {
-  BirthdayInputCubit({required TextEditingController birthdayController})
-      : super(BirthdayInputState(
+  BirthdayInputCubit({
+    required TextEditingController birthdayController,
+  })  : _birthdayController = birthdayController,
+        super(BirthdayInputState(
           birthdayController: birthdayController,
           initialDate: DateTime.now(),
         )) {
-    _birthdayController = birthdayController;
     setDate(state.initialDate);
   }
 
-  late final TextEditingController _birthdayController;
+  final TextEditingController _birthdayController;
   late DateTime selectedDate;
 
   @override
