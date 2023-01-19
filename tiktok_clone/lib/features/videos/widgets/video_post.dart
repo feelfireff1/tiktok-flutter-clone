@@ -18,14 +18,26 @@ class VideoPost extends StatefulWidget {
   State<VideoPost> createState() => _VideoPostState();
 }
 
-class _VideoPostState extends State<VideoPost> {
+class _VideoPostState extends State<VideoPost>
+    with SingleTickerProviderStateMixin {
+  final Duration _animationDuration = const Duration(milliseconds: 200);
+  late final AnimationController _animationController;
   final VideoPlayerController _controller =
       VideoPlayerController.asset('assets/videos/video.mp4');
+
+  bool _isPaused = false;
 
   @override
   void initState() {
     super.initState();
 
+    _animationController = AnimationController(
+      lowerBound: 1.0,
+      upperBound: 1.5,
+      value: 1.5,
+      vsync: this,
+      duration: _animationDuration,
+    );
     _initVideoPlayer();
   }
 
@@ -55,6 +67,20 @@ class _VideoPostState extends State<VideoPost> {
     }
   }
 
+  void _togglePause() {
+    if (_controller.value.isPlaying) {
+      _controller.pause();
+      _animationController.reverse();
+    } else {
+      _controller.play();
+      _animationController.forward();
+    }
+
+    setState(() {
+      _isPaused = !_isPaused;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
@@ -74,13 +100,20 @@ class _VideoPostState extends State<VideoPost> {
               onTap: _togglePause,
             ),
           ),
-          const Positioned.fill(
+          Positioned.fill(
             child: IgnorePointer(
               child: Center(
-                child: FaIcon(
-                  FontAwesomeIcons.play,
-                  color: Colors.white,
-                  size: Sizes.size52,
+                child: Transform.scale(
+                  scale: _animationController.value,
+                  child: AnimatedOpacity(
+                    duration: _animationDuration,
+                    opacity: _isPaused ? 1 : 0,
+                    child: const FaIcon(
+                      FontAwesomeIcons.play,
+                      color: Colors.white,
+                      size: Sizes.size52,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -88,13 +121,5 @@ class _VideoPostState extends State<VideoPost> {
         ],
       ),
     );
-  }
-
-  void _togglePause() {
-    if (_controller.value.isPlaying) {
-      _controller.pause();
-    } else {
-      _controller.play();
-    }
   }
 }
