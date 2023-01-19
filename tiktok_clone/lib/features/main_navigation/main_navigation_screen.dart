@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/constants.dart';
+import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
 
 import 'widgets/nav_tab.dart';
 import 'widgets/post_video_button.dart';
@@ -30,7 +31,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         children: [
           Offstage(
             offstage: _selectedIndex != 0,
-            child: screens[0],
+            child: const VideoTimelineScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 1,
