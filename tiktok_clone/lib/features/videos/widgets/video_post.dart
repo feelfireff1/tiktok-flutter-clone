@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/constants.dart';
+import 'package:tiktok_clone/features/videos/widgets/vertical_icon_text_button.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -49,6 +50,7 @@ class _VideoPostState extends State<VideoPost>
 
   void _initVideoPlayer() async {
     await _controller.initialize();
+    await _controller.setLooping(true);
     _controller.addListener(_onVideoChanged);
     setState(() {});
   }
@@ -123,7 +125,63 @@ class _VideoPostState extends State<VideoPost>
                 ),
               ),
             ),
-          )
+          ),
+          Positioned(
+            bottom: 20,
+            left: 10,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  '@soojin',
+                  style: TextStyle(
+                    fontSize: Sizes.size14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Gaps.v10,
+                Text(
+                  'This is actually the place.',
+                  style: TextStyle(
+                    fontSize: Sizes.size14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.normal,
+                  ),
+                )
+              ],
+            ),
+          ),
+          Positioned(
+              bottom: 20,
+              right: 20,
+              child: Column(
+                children: const [
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    foregroundImage: NetworkImage(
+                        'https://avatars.githubusercontent.com/u/3890050'),
+                    child: Text('수진'),
+                  ),
+                  Gaps.v24,
+                  VerticalIconTextButton(
+                    icon: FontAwesomeIcons.solidHeart,
+                    text: '2.9M',
+                  ),
+                  Gaps.v20,
+                  VerticalIconTextButton(
+                    icon: FontAwesomeIcons.solidComment,
+                    text: '33K',
+                  ),
+                  Gaps.v20,
+                  VerticalIconTextButton(
+                    icon: FontAwesomeIcons.share,
+                    text: 'Share',
+                  ),
+                ],
+              ))
         ],
       ),
     );
